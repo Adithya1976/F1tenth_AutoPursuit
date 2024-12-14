@@ -11,7 +11,7 @@ create_container (){
 	--volume="${XAUTHORITY}:/root/.Xauthority" \
         --privileged \
         --net=f1tenth_net \
- 	      -v $PWD/../:/f1tenth_workshop/ \
+ 	      -v $PWD/../:/F1tenth_AutoPursuit/ \
         f1tenth_gym_ros
 }
 

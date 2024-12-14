@@ -5,7 +5,7 @@ services:
     image: f1tenth_gym_ros
     build: ./
     volumes: 
-      - ../:/f1tenth_workshop
+      - ../:/F1tenth_AutoPursuit
     environment:
       - DISPLAY=novnc:0.0
     networks:
