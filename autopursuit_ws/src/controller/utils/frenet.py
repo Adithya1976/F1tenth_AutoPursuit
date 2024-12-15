@@ -67,7 +67,6 @@ class Frenet:
                 break
             idx %= self.size
         
-        print(self.waypoint_idx)
         return self.waypoint_idx
 
 filename = "/F1tenth_AutoPursuit/maps/BrandsHatch/BrandsHatch_raceline.csv"
