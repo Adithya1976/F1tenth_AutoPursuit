@@ -28,6 +28,7 @@ class PPController:
 
         self.wpt_window_size = config["waypoint_window_size"]
         self.global_track_length = self.waypts[" s_m"][self.wpt_size - 1]
+        self.curvature_path_length = 40
 
         # Assign parameters
         self.t_clip_min = config['t_clip_min']
@@ -68,11 +69,12 @@ class PPController:
         # Updating parameters from manager
         self.position_in_map = position_in_map
         self.speed_now = speed_now
-        self.position_in_map_frenet = position_in_map_frenet
+        self.cur_wpt_idx = self.compute_closest_wpt_index(self.position_in_map[0], self.position_in_map[1])
+        self.position_in_map_frenet = self.compute_frenet_coords(self.position_in_map[0], self.position_in_map[1], self.cur_wpt_idx)
         self.acc_now = acc_now
         ## PREPROCESS ##
         # speed vector
-        yaw = self.position_in_map[0, 2]
+        yaw = self.position_in_map[2]
         v = [np.cos(yaw)*self.speed_now, np.sin(yaw)*self.speed_now] 
 
         # calculate lateral error and lateral error norm (lateral_error, self.lateral_error_list, self.lat_e_norm)
@@ -116,12 +118,12 @@ class PPController:
         """
         # lookahead for steer (steering delay incorporation by propagating position)
         adv_ts_st = self.speed_lookahead_for_steer
-        la_position_steer = [self.position_in_map[0, 0] + v[0]*adv_ts_st, self.position_in_map[0, 1] + v[1]*adv_ts_st]
-        idx_la_steer = self.nearest_waypoint(la_position_steer, self.waypoint_array_in_map[:, :2])
-        speed_la_for_lu = self.waypoint_array_in_map[idx_la_steer, 2]
+        la_position_steer = [self.position_in_map[0] + v[0]*adv_ts_st, self.position_in_map[1] + v[1]*adv_ts_st]
+        idx_la_steer = self.compute_closest_wpt_index(la_position_steer[0], la_position_steer[1])
+        speed_la_for_lu = self.waypts['vx_mps'][idx_la_steer]
         speed_for_lu = self.speed_adjust_lat_err(speed_la_for_lu, lat_e_norm)
 
-        L1_vector = np.array([L1_point[0] - self.position_in_map[0, 0], L1_point[1] - self.position_in_map[0, 1]])
+        L1_vector = np.array([L1_point[0] - self.position_in_map[0], L1_point[1] - self.position_in_map[1]])
         if np.linalg.norm(L1_vector) == 0:
             eta = 0
         else:
@@ -153,16 +155,11 @@ class PPController:
             L1_point: point in frenet coordinates at L1 distance in front of the car
             L1_distance: distance of the L1 point to the car
         """
-        
-        self.idx_nearest_waypoint = self.nearest_waypoint(self.position_in_map[0, :2], self.waypoint_array_in_map[:, :2]) 
-        
-        # if all waypoints are equal set self.idx_nearest_waypoint to 0
-        if np.isnan(self.idx_nearest_waypoint): 
-            self.idx_nearest_waypoint = 0
-        
-        if len(self.waypoint_array_in_map[self.idx_nearest_waypoint:]) > 2:
-            # calculate curvature of global optimizer waypoints
-            self.curvature_waypoints = np.mean(abs(self.waypoint_array_in_map[self.idx_nearest_waypoint:,5]))
+        sum_kappas = 0
+        for i in range(self.curvature_path_length):
+            sum_kappas = self.waypts['kappa_radpm'][(self.cur_wpt_idx + i)%self.wpt_size]
+
+        self.curvature_waypoints = sum_kappas/self.curvature_path_length
 
         # calculate L1 guidance
         L1_distance = self.q_l1 + self.speed_now *self.m_l1
@@ -171,7 +168,7 @@ class PPController:
         lower_bound = max(self.t_clip_min, np.sqrt(2)*lateral_error)
         L1_distance = np.clip(L1_distance, lower_bound, self.t_clip_max)
 
-        L1_point = self.waypoint_at_distance_before_car(L1_distance, self.waypoint_array_in_map[:,:2], self.idx_nearest_waypoint)
+        L1_point = self.waypoint_at_distance_before_car(L1_distance)
         return L1_point, L1_distance
     
     
@@ -189,9 +186,9 @@ class PPController:
 
         # lookahead for speed (speed delay incorporation by propagating position)
         adv_ts_sp = self.speed_lookahead
-        la_position = [self.position_in_map[0, 0] + v[0]*adv_ts_sp, self.position_in_map[0, 1] + v[1]*adv_ts_sp]
-        idx_la_position = self.nearest_waypoint(la_position, self.waypoint_array_in_map[:, :2])
-        global_speed = self.waypoint_array_in_map[idx_la_position, 2]
+        la_position = [self.position_in_map[0] + v[0]*adv_ts_sp, self.position_in_map[1] + v[1]*adv_ts_sp]
+        idx_la_position = self.compute_closest_wpt_index(la_position[0], la_position[1])
+        global_speed = self.waypts["vx_mps"][idx_la_position]
         speed_command = global_speed
 
         speed_command = self.speed_adjust_lat_err(speed_command, lat_e_norm)
@@ -272,7 +269,7 @@ class PPController:
         distances_to_position = np.linalg.norm(abs(position_array - waypoints), axis=1)
         return np.argmin(distances_to_position)
 
-    def waypoint_at_distance_before_car(self, distance, waypoints, idx_waypoint_behind_car):
+    def waypoint_at_distance_before_car(self, distance):
         """
         Calculates the waypoint at a certain frenet distance in front of the car
 
@@ -282,10 +279,10 @@ class PPController:
         if distance is None:
             distance = self.t_clip_min
         d_distance = distance
-        waypoints_distance = 0.1
+        waypoints_distance = 0.2
         d_index= int(d_distance/waypoints_distance + 0.5)
 
-        return np.array(waypoints[min(len(waypoints) -1, idx_waypoint_behind_car + d_index)]) 
+        return self.waypts["x_m"][self.cur_wpt_idx + d_index], self.waypts["y_m"][self.cur_wpt_idx + d_index]
     
     def extract_data_from_csv(self, filename):
         """
@@ -345,9 +342,7 @@ class PPController:
         
         return nearest_wpt_idx
 
-    def compute_frenet_coords(self, x, y):
-        # compute closest index
-        closest_idx = self.compute_closest_wpt_index(x, y, optimize=True)
+    def compute_frenet_coords(self, x, y, closest_idx):
 
         # Calculate the difference in position
         d_x = x - self.waypts["x_m"][closest_idx]
@@ -364,25 +359,3 @@ class PPController:
              d_y * math.cos(self.waypts["psi_rad"][closest_idx]))
 
         return s, d
-        
-class PPControllerNode(Node):
-    def __init__(self):
-        super.__init__("pp_controller")
-
-    
-
-def main(args=None):
-    rclpy.init(args=args)
-    movestraight = MAPControllerNode()
-
-    rclpy.spin(movestraight)
-
-    # Destroy the node explicitly
-    # (optional - otherwise it will be done automatically
-    # when the garbage collector destroys the node object)
-    movestraight.destroy_node()
-    rclpy.shutdown()
-
-
-if __name__ == '__main__':
-    main()
