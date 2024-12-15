@@ -1,0 +1,24 @@
+[0.247s] Invoking command in '/F1tenth_AutoPursuit/autopursuit_ws/controller': PYTHONPATH=/F1tenth_AutoPursuit/autopursuit_ws/build/controller/prefix_override:/F1tenth_AutoPursuit/autopursuit_ws/install/controller/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/controller build --build-base /F1tenth_AutoPursuit/autopursuit_ws/build/controller/build install --record /F1tenth_AutoPursuit/autopursuit_ws/build/controller/install.log --install-scripts $base/lib/controller --single-version-externally-managed
+[0.316s] running egg_info
+[0.316s] writing ../build/controller/controller.egg-info/PKG-INFO
+[0.317s] writing dependency_links to ../build/controller/controller.egg-info/dependency_links.txt
+[0.317s] writing entry points to ../build/controller/controller.egg-info/entry_points.txt
+[0.318s] writing requirements to ../build/controller/controller.egg-info/requires.txt
+[0.319s] writing top-level names to ../build/controller/controller.egg-info/top_level.txt
+[0.336s] reading manifest file '../build/controller/controller.egg-info/SOURCES.txt'
+[0.337s] writing manifest file '../build/controller/controller.egg-info/SOURCES.txt'
+[0.337s] running build
+[0.337s] running build_py
+[0.338s] copying controller/controller_node.py -> /F1tenth_AutoPursuit/autopursuit_ws/build/controller/build/lib/controller
+[0.339s] running install
+[0.339s] running install_lib
+[0.340s] copying /F1tenth_AutoPursuit/autopursuit_ws/build/controller/build/lib/controller/controller_node.py -> /F1tenth_AutoPursuit/autopursuit_ws/install/controller/lib/python3.8/site-packages/controller
+[0.342s] byte-compiling /F1tenth_AutoPursuit/autopursuit_ws/install/controller/lib/python3.8/site-packages/controller/controller_node.py to controller_node.cpython-38.pyc
+[0.344s] running install_data
+[0.344s] running install_egg_info
+[0.345s] removing '/F1tenth_AutoPursuit/autopursuit_ws/install/controller/lib/python3.8/site-packages/controller-0.0.0-py3.8.egg-info' (and everything under it)
+[0.345s] Copying ../build/controller/controller.egg-info to /F1tenth_AutoPursuit/autopursuit_ws/install/controller/lib/python3.8/site-packages/controller-0.0.0-py3.8.egg-info
+[0.352s] running install_scripts
+[0.361s] Installing controller_node script to /F1tenth_AutoPursuit/autopursuit_ws/install/controller/lib/controller
+[0.362s] writing list of installed files to '/F1tenth_AutoPursuit/autopursuit_ws/build/controller/install.log'
+[0.374s] Invoked command in '/F1tenth_AutoPursuit/autopursuit_ws/controller' returned '0': PYTHONPATH=/F1tenth_AutoPursuit/autopursuit_ws/build/controller/prefix_override:/F1tenth_AutoPursuit/autopursuit_ws/install/controller/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/controller build --build-base /F1tenth_AutoPursuit/autopursuit_ws/build/controller/build install --record /F1tenth_AutoPursuit/autopursuit_ws/build/controller/install.log --install-scripts $base/lib/controller --single-version-externally-managed
