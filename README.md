@@ -1,5 +1,12 @@
 # F1tenth_AutoPursuit
 
+Follow-the-Gap fastest lap time: 33.9s
+
+Pure pursuit fastest laptime: 37.1s
+
+Chosen algorithm: Follow-the-Gap
+
+
 # Algorithm 1: Follow-the-Gap
 Modified the gapfinder algorithm provided in the F1Tenth Workshop [repo](https://github.com/NTU-Autonomous-Racing-Team/F1Tenth_Workshop/blob/main/f1tenth_simulator/gap_finder_base.py).
 
