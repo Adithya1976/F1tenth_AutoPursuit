@@ -431,7 +431,7 @@ class GapFinderNode(Node):
         after speed crosses this threshold.
         """
         ratio = self.current_speed/self.max_speed
-        if self.current_speed >= 13.5: # TODO: Make this a control variable?
+        if self.current_speed >= 13.5:
             return 15
         return 5 * ratio
 
