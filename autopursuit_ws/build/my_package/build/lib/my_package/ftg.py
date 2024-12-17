@@ -303,10 +303,10 @@ class GapFinderNode(Node):
 
         ### SPEED AND STEERING LIMITS ###
         # Speed limits
-        self.max_speed = 25 # [m/s] or 27.5
+        self.max_speed = 27.5 # [m/s] or 25
         self.min_speed = 8 # [m/s]
         # Acceleration limits
-        self.max_acceleration = 12.5 # [m/s^2] or 15
+        self.max_acceleration = 15 # [m/s^2] or 12.5
         # Steering limits
         self.max_steering = 0.5 # [rad]
 

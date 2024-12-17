@@ -1,0 +1,4 @@
+[console_scripts]
+evaluation = evaluation.evaluation:main
+wall_follow = evaluation.wall_follow:main
+

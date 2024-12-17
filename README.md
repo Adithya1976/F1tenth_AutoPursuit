@@ -14,10 +14,9 @@ The modifications made include:
 
 - Dynamically increase deceleration as speed increases. At higher speeds, the maximum deceleration would be greater than maximum acceleration to improve stability.
 
-Run the algorithm using the command:
-`python3 /F1tenth_AutoPursuit/autopursuit_ws/algorithms/ftg.py`.
-
-NOTE: Remember to run `source /opt/ros/foxy/setup.bash` beforehand.
+NOTE: 
+1. Remember to run `source /opt/ros/foxy/setup.bash` beforehand.
+2. Tuning self.max_speed and self.max_acceleration to 25, 12.5 (provided in comments next to their initialisation) gives a more stable but slower(slightly) simulation.
 
 # Algorithm 2: Pure Pursuit Algorithm
 

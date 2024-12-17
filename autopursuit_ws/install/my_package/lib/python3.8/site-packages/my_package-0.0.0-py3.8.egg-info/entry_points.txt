@@ -1,3 +1,3 @@
 [console_scripts]
-
+ftg = my_package.ftg:main
 

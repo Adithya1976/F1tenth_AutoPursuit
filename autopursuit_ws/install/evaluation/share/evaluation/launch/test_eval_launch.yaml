@@ -1,0 +1,9 @@
+launch:
+
+- node:
+    pkg: "evaluation"
+    exec: "evaluation"
+
+- node:
+    pkg: "my_package"
+    exec: "ftg"

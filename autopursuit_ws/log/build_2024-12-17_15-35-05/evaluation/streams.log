@@ -1,0 +1,22 @@
+[0.320s] Invoking command in '/F1tenth_AutoPursuit/autopursuit_ws/src/F1Tenth_Hackathon_Evaluation': PYTHONPATH=/F1tenth_AutoPursuit/autopursuit_ws/build/evaluation/prefix_override:/F1tenth_AutoPursuit/autopursuit_ws/install/evaluation/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/evaluation build --build-base /F1tenth_AutoPursuit/autopursuit_ws/build/evaluation/build install --record /F1tenth_AutoPursuit/autopursuit_ws/build/evaluation/install.log --install-scripts $base/lib/evaluation --single-version-externally-managed
+[0.400s] running egg_info
+[0.403s] writing ../../build/evaluation/evaluation.egg-info/PKG-INFO
+[0.405s] writing dependency_links to ../../build/evaluation/evaluation.egg-info/dependency_links.txt
+[0.406s] writing entry points to ../../build/evaluation/evaluation.egg-info/entry_points.txt
+[0.406s] writing requirements to ../../build/evaluation/evaluation.egg-info/requires.txt
+[0.407s] writing top-level names to ../../build/evaluation/evaluation.egg-info/top_level.txt
+[0.424s] reading manifest file '../../build/evaluation/evaluation.egg-info/SOURCES.txt'
+[0.425s] writing manifest file '../../build/evaluation/evaluation.egg-info/SOURCES.txt'
+[0.425s] running build
+[0.426s] running build_py
+[0.427s] running install
+[0.428s] running install_lib
+[0.429s] running install_data
+[0.430s] running install_egg_info
+[0.431s] removing '/F1tenth_AutoPursuit/autopursuit_ws/install/evaluation/lib/python3.8/site-packages/evaluation-0.0.0-py3.8.egg-info' (and everything under it)
+[0.432s] Copying ../../build/evaluation/evaluation.egg-info to /F1tenth_AutoPursuit/autopursuit_ws/install/evaluation/lib/python3.8/site-packages/evaluation-0.0.0-py3.8.egg-info
+[0.440s] running install_scripts
+[0.449s] Installing evaluation script to /F1tenth_AutoPursuit/autopursuit_ws/install/evaluation/lib/evaluation
+[0.449s] Installing wall_follow script to /F1tenth_AutoPursuit/autopursuit_ws/install/evaluation/lib/evaluation
+[0.455s] writing list of installed files to '/F1tenth_AutoPursuit/autopursuit_ws/build/evaluation/install.log'
+[0.477s] Invoked command in '/F1tenth_AutoPursuit/autopursuit_ws/src/F1Tenth_Hackathon_Evaluation' returned '0': PYTHONPATH=/F1tenth_AutoPursuit/autopursuit_ws/build/evaluation/prefix_override:/F1tenth_AutoPursuit/autopursuit_ws/install/evaluation/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/evaluation build --build-base /F1tenth_AutoPursuit/autopursuit_ws/build/evaluation/build install --record /F1tenth_AutoPursuit/autopursuit_ws/build/evaluation/install.log --install-scripts $base/lib/evaluation --single-version-externally-managed
