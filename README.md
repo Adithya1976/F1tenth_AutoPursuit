@@ -105,7 +105,4 @@ The parameters **\( q \)**, **\( m \)**, **t\_clip\_min**, and **t\_clip\_max** 
    - Minimum lookahead distance (t\_clip\_min)
    - Maximum lookahead distance (t\_clip\_max)
 
-Run the algorithm using the command:
-`python3 /F1tenth_AutoPursuit/autopursuit_ws/algorithms/pure_pursuit.py`.
-
-NOTE: Remember to run `source /opt/ros/foxy/setup.bash` beforehand.
+   NOTE: change the raceline.csv file path as needed in pursuit.py
